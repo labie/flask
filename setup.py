@@ -7,6 +7,7 @@ from setuptools import setup
 with io.open("README.rst", "rt", encoding="utf8") as f:
     readme = f.read()
 
+# this is a bit hacky, not like `requests`
 with io.open("src/flask/__init__.py", "rt", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
@@ -45,6 +46,7 @@ setup(
         "Topic :: Software Development :: Libraries :: Application Frameworks",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    # in this way, you can change package name
     packages=find_packages("src"),
     package_dir={"": "src"},
     include_package_data=True,
@@ -53,6 +55,7 @@ setup(
         "Werkzeug>=0.15",
         "Jinja2>=2.10.1",
         "itsdangerous>=0.24",
+        # yes, it uses click
         "click>=5.1",
     ],
     extras_require={

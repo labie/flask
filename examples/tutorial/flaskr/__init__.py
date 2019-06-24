@@ -26,6 +26,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # this is actually function call
     @app.route("/hello")
     def hello():
         return "Hello, World!"
@@ -35,9 +36,12 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
+    # this coding style is a bit weird, but maybe is the correct way of dynamic import
+    # import when used
     # apply the blueprints to the app
     from flaskr import auth, blog
 
+    # consider blueprint as some kind of route branch/container
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
 

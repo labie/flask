@@ -319,6 +319,7 @@ class Flask(_PackageBoundObject):
     jinja_options = {"extensions": ["jinja2.ext.autoescape", "jinja2.ext.with_"]}
 
     #: Default configuration parameters.
+    # configure HTTP behavior
     default_config = ImmutableDict(
         {
             "ENV": None,

@@ -75,6 +75,7 @@ def find_best_app(script_info, module):
         )
 
     # Search for app factory functions.
+    # this is hard-coded for cli to find default entry for app
     for attr_name in ("create_app", "make_app"):
         app_factory = getattr(module, attr_name, None)
 

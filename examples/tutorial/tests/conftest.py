@@ -16,18 +16,24 @@ with open(os.path.join(os.path.dirname(__file__), "data.sql"), "rb") as f:
 def app():
     """Create and configure a new app instance for each test."""
     # create a temporary file to isolate the database for each test
+    # this is a preferred way to create and open a temp file
     db_fd, db_path = tempfile.mkstemp()
     # create the app with common test config
     app = create_app({"TESTING": True, "DATABASE": db_path})
 
     # create the database and load test data
     with app.app_context():
+        # init db and also insert some entries for testing
         init_db()
         get_db().executescript(_data_sql)
 
+    # thus clean up code can be executed after this
+    # but is difficult to understand when this is returned.
+    # the truth is that it will be returned after the test case is run
     yield app
 
     # close and remove the temporary database
+    # clean temp file clean up code
     os.close(db_fd)
     os.unlink(db_path)
 
