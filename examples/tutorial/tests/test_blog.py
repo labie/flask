@@ -48,6 +48,7 @@ def test_create(client, auth, app):
     assert client.get("/create").status_code == 200
     client.post("/create", data={"title": "created", "body": ""})
 
+    # app_context is just a context manager to push/pop current app to LocalStack
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM post").fetchone()[0]
